@@ -4,5 +4,10 @@
 
 <h2>About</h2>
 <p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+    <uL>
+    @foreach(MembershipUser item in Membership.GetAllUsers())
+    {
+        <li> @item @item.CreationDate </li>        
+    }
+    </uL>
 </p>

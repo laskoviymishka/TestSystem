@@ -52,10 +52,18 @@
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "required" })
                 @Html.ValidationMessageFor(m => m.ConfirmPassword)
             </div>
+            <div class="controls">
+                <select class="role">
+                    <option class="role">Professor</option>
+                    <option class="role">Student</option>
+                </select>
+            </div>
         </div>
+
         <div class="form-actions">
             <input type="submit" value="Register" class="btn btn-primary" />
         </div>
+
     </fieldset>
 }
 
