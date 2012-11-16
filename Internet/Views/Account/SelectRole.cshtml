@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "SelectRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    SelectRole</h2>
+@using (Html.BeginForm("SelectRole", "Account", FormMethod.Post)){
+<div class="controls">
+    <select class="role">
+        <option class="role">Professor</option>
+        <option class="role">Student</option>
+    </select>
+    <div class="form-actions">
+        <input type="submit" value="Register" class="btn btn-primary" />
+    </div>
+</div>
+} 

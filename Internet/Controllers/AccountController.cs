@@ -11,7 +11,7 @@ namespace Internet.Controllers
 {
     public class AccountController : Controller
     {
-
+        #region DefaultUserLogic
         //
         // GET: /Account/LogOn
 
@@ -84,7 +84,7 @@ namespace Internet.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("SelectRole", "Account");
                 }
                 else
                 {
@@ -149,6 +149,22 @@ namespace Internet.Controllers
         {
             return View();
         }
+        #endregion
+        [Authorize]
+        public ActionResult SelectRole()
+        {
+            return View();
+        }
+
+      
+        [Authorize]
+        [HttpPost]
+        public ActionResult SelectRole(string role)
+        {
+
+            return View();
+        }
+
 
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
