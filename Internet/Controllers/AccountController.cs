@@ -84,7 +84,7 @@ namespace Internet.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("SelectRole", "Account");
+                    return RedirectToAction("Account", "SelectRole");
                 }
                 else
                 {
@@ -142,13 +142,6 @@ namespace Internet.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ChangePasswordSuccess
-
-        public ActionResult ChangePasswordSuccess()
-        {
-            return View();
-        }
         #endregion
         [Authorize]
         public ActionResult SelectRole()
@@ -164,7 +157,13 @@ namespace Internet.Controllers
 
             return View();
         }
+        //
+        // GET: /Account/ChangePasswordSuccess
 
+        public ActionResult ChangePasswordSuccess()
+        {
+            return View();
+        }
 
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
