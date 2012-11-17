@@ -11,10 +11,14 @@ namespace Internet.Controllers
     {
         //
         // GET: /Test/
-
+        [Authorize]
         public ActionResult Index()
         {
             TestEntities te = new TestEntities();
+            if (User.IsInRole("Professor"))
+            {
+                return View("List",te.Tests);
+            }
             return View(te.Tests.ToList());
         }
 
