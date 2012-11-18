@@ -69,6 +69,9 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CheckListModel.cs" />
+    <Compile Include="Models\IService.cs" />
+    <Compile Include="Models\QuestionService.cs" />
+    <Compile Include="Models\TestService.cs" />
     <Compile Include="Models\TestsModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -147,6 +150,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Test\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Test\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Test\Create.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
