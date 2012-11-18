@@ -22,6 +22,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("TestModel", "FK_Tests_Difficulty", "Difficulty", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Internet.Models.Difficulty), "Tests", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Test), true)]
 [assembly: EdmRelationshipAttribute("TestModel", "FK_Questions_Tests", "Tests", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Internet.Models.Test), "Questions", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Question), true)]
 [assembly: EdmRelationshipAttribute("TestModel", "FK_Tests_TestCategory", "TestCategory", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Internet.Models.TestCategory), "Tests", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Test), true)]
+[assembly: EdmRelationshipAttribute("TestModel", "FK_Results_Tests", "Test", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Internet.Models.Test), "Result", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Result), true)]
+[assembly: EdmRelationshipAttribute("TestModel", "AnswersResults", "Answer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Answer), "Result", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Result))]
 
 #endregion
 
@@ -168,6 +170,22 @@ namespace Internet.Models
             }
         }
         private ObjectSet<Test> _Tests;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<Result> Results
+        {
+            get
+            {
+                if ((_Results == null))
+                {
+                    _Results = base.CreateObjectSet<Result>("Results");
+                }
+                return _Results;
+            }
+        }
+        private ObjectSet<Result> _Results;
 
         #endregion
         #region Методы AddTo
@@ -218,6 +236,14 @@ namespace Internet.Models
         public void AddToTests(Test test)
         {
             base.AddObject("Tests", test);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet Results. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToResults(Result result)
+        {
+            base.AddObject("Results", result);
         }
 
         #endregion
@@ -398,6 +424,28 @@ namespace Internet.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TestModel", "AnswersResults", "Result")]
+        public EntityCollection<Result> Results_1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Result>("TestModel.AnswersResults", "Result");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Result>("TestModel.AnswersResults", "Result", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -550,12 +598,14 @@ namespace Internet.Models
         /// <param name="id">Исходное значение свойства ID.</param>
         /// <param name="questionBody">Исходное значение свойства QuestionBody.</param>
         /// <param name="testID">Исходное значение свойства TestID.</param>
-        public static Question CreateQuestion(global::System.Int32 id, global::System.String questionBody, global::System.Int32 testID)
+        /// <param name="questionType">Исходное значение свойства QuestionType.</param>
+        public static Question CreateQuestion(global::System.Int32 id, global::System.String questionBody, global::System.Int32 testID, global::System.Int32 questionType)
         {
             Question question = new Question();
             question.ID = id;
             question.QuestionBody = questionBody;
             question.TestID = testID;
+            question.QuestionType = questionType;
             return question;
         }
 
@@ -636,6 +686,30 @@ namespace Internet.Models
         private global::System.Int32 _TestID;
         partial void OnTestIDChanging(global::System.Int32 value);
         partial void OnTestIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 QuestionType
+        {
+            get
+            {
+                return _QuestionType;
+            }
+            set
+            {
+                OnQuestionTypeChanging(value);
+                ReportPropertyChanging("QuestionType");
+                _QuestionType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("QuestionType");
+                OnQuestionTypeChanged();
+            }
+        }
+        private global::System.Int32 _QuestionType;
+        partial void OnQuestionTypeChanging(global::System.Int32 value);
+        partial void OnQuestionTypeChanged();
 
         #endregion
     
@@ -697,6 +771,226 @@ namespace Internet.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Test>("TestModel.FK_Questions_Tests", "Tests", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TestModel", Name="Result")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Result : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта Result.
+        /// </summary>
+        /// <param name="id">Исходное значение свойства ID.</param>
+        /// <param name="testID">Исходное значение свойства TestID.</param>
+        /// <param name="userName">Исходное значение свойства UserName.</param>
+        /// <param name="answerID">Исходное значение свойства AnswerID.</param>
+        public static Result CreateResult(global::System.Int32 id, global::System.Int32 testID, global::System.String userName, global::System.Int32 answerID)
+        {
+            Result result = new Result();
+            result.ID = id;
+            result.TestID = testID;
+            result.UserName = userName;
+            result.AnswerID = answerID;
+            return result;
+        }
+
+        #endregion
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TestID
+        {
+            get
+            {
+                return _TestID;
+            }
+            set
+            {
+                OnTestIDChanging(value);
+                ReportPropertyChanging("TestID");
+                _TestID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TestID");
+                OnTestIDChanged();
+            }
+        }
+        private global::System.Int32 _TestID;
+        partial void OnTestIDChanging(global::System.Int32 value);
+        partial void OnTestIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+            set
+            {
+                OnUserNameChanging(value);
+                ReportPropertyChanging("UserName");
+                _UserName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UserName");
+                OnUserNameChanged();
+            }
+        }
+        private global::System.String _UserName;
+        partial void OnUserNameChanging(global::System.String value);
+        partial void OnUserNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ResultDescription
+        {
+            get
+            {
+                return _ResultDescription;
+            }
+            set
+            {
+                OnResultDescriptionChanging(value);
+                ReportPropertyChanging("ResultDescription");
+                _ResultDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ResultDescription");
+                OnResultDescriptionChanged();
+            }
+        }
+        private global::System.String _ResultDescription;
+        partial void OnResultDescriptionChanging(global::System.String value);
+        partial void OnResultDescriptionChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AnswerID
+        {
+            get
+            {
+                return _AnswerID;
+            }
+            set
+            {
+                OnAnswerIDChanging(value);
+                ReportPropertyChanging("AnswerID");
+                _AnswerID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AnswerID");
+                OnAnswerIDChanged();
+            }
+        }
+        private global::System.Int32 _AnswerID;
+        partial void OnAnswerIDChanging(global::System.Int32 value);
+        partial void OnAnswerIDChanged();
+
+        #endregion
+    
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TestModel", "FK_Results_Tests", "Test")]
+        public Test Test
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Test>("TestModel.FK_Results_Tests", "Test").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Test>("TestModel.FK_Results_Tests", "Test").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Test> TestReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Test>("TestModel.FK_Results_Tests", "Test");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Test>("TestModel.FK_Results_Tests", "Test", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TestModel", "AnswersResults", "Answer")]
+        public EntityCollection<Answer> Answers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Answer>("TestModel.AnswersResults", "Answer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Answer>("TestModel.AnswersResults", "Answer", value);
                 }
             }
         }
@@ -1136,6 +1430,28 @@ namespace Internet.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TestCategory>("TestModel.FK_Tests_TestCategory", "TestCategory", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TestModel", "FK_Results_Tests", "Result")]
+        public EntityCollection<Result> Results
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Result>("TestModel.FK_Results_Tests", "Result");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Result>("TestModel.FK_Results_Tests", "Result", value);
                 }
             }
         }
