@@ -8,6 +8,7 @@ namespace Internet.Models
     public interface IService<T>
     {
         T GetByID(int ID);
+        List<T> GetItems();
 
         void CreateItem(T item);
         void DeleteItem(T item);

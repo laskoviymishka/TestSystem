@@ -42,5 +42,11 @@ namespace Internet.Models
             q.Answers = newItem.Answers;
             _testEntity.SaveChanges();
         }
+
+
+        public List<Question> GetItems()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,7 +9,11 @@ namespace Internet.Controllers
 {
     public class TestController : Controller
     {
-        TestService _service;
+        IService<Test> _service;
+        public TestController() 
+        {
+            _service = new TestService();
+        }
         //
         // GET: /Test/
         [Authorize]
@@ -22,19 +26,24 @@ namespace Internet.Controllers
             }
             return View(te.Tests.ToList());
         }
-
+        [Authorize(Roles = "Professor")]
+        public ActionResult Delete(int ID)
+        {
+            _service.DeleteItem(_service.GetByID(ID));
+            return View("List", _service.GetItems());
+        }
 
         [Authorize(Roles = "Professor")]
         public ActionResult Edit(int ID) 
         {
-            TestEntities te = new TestEntities();
-            return View((Test)te.Tests.Where<Test>(t => t.ID == ID).FirstOrDefault<Test>());
+          
+            return View(_service.GetByID(ID));
         }
         [Authorize(Roles = "Professor")]
         [HttpPost]
         public ActionResult Edit(Test item)
         {
-            _service = new TestService();
+           
             _service.UpdateItem(_service.GetByID(1),item);
             return View();
         }
@@ -49,9 +58,9 @@ namespace Internet.Controllers
         [HttpPost]
         public ActionResult Create(Test item)
         {
-            _service = new TestService();
             _service.CreateItem(item);
             return View();
         }
+        
     }
 }

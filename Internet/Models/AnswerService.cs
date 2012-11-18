@@ -36,5 +36,11 @@ namespace Internet.Models
             answer.IsRight = newItem.IsRight;
             answer.AnswerBody = newItem.AnswerBody;
         }
+
+
+        public List<Answer> GetItems()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -50,6 +50,7 @@ namespace Internet.Models
         public void DeleteItem(Test item)
         {
             _tests.Tests.DeleteObject(item);
+            _tests.SaveChanges();
         }
         public void UpdateItem(Test item,Test newItem) 
         {
@@ -62,5 +63,11 @@ namespace Internet.Models
             _tests.SaveChanges();
         }
         #endregion
+
+
+        public List<Test> GetItems()
+        {
+            return _tests.Tests.ToList<Test>();
+        }
     }
 }
