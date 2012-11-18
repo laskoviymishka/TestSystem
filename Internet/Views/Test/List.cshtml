@@ -19,13 +19,13 @@
             TestDescription
         </th>
         <th>
-            CategoryID
+            Category
         </th>
         <th>
             TestAuthor
         </th>
         <th>
-            DifficultyID
+            Difficulty
         </th>
         <th></th>
     </tr>
@@ -33,23 +33,23 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.TestName)
+           | @Html.DisplayFor(modelItem => item.TestName)|
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TestDescription)
+           | @Html.DisplayFor(modelItem => item.TestDescription)|
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoryID)
+           | @Html.DisplayFor(modelItem => item.TestCategory.CategoryName)|
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TestAuthor)
+           | @Html.DisplayFor(modelItem => item.TestAuthor)|
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DifficultyID)
+           | @Html.DisplayFor(modelItem => item.Difficulty.DifficultyName)|
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+           
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
