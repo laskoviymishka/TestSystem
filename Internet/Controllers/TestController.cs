@@ -61,6 +61,11 @@ namespace Internet.Controllers
             _service.CreateItem(item);
             return View("List", _service.GetItems());
         }
-        
+        [HttpGet]
+        [Authorize(Roles = "Professor")]
+        public ActionResult Details(int ID)
+        {
+            return View(_service.GetByID(ID));
+        }
     }
 }

@@ -1,0 +1,48 @@
+﻿@model Internet.Models.Test
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Test</legend>
+
+    <div class="display-label">TestName</div>
+    
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TestName)
+    </div>
+    <br />
+    <div class="display-label">TestDescription</div>
+    
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TestDescription)
+    </div>
+    <br />
+    <div class="display-label">Category</div>
+  
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TestCategory.CategoryName)
+    </div>
+      <br />
+    <div class="display-label">TestAuthor</div>
+
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TestAuthor)
+    </div>
+    <br />
+    <div class="display-label">Difficulty</div>
+
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Difficulty.DifficultyName)
+    </div>
+    <br />
+</fieldset>
+<p>
+    
+    <a href = "@Url.Content("~/Question/Index/" + Model.ID.ToString())"> View Questions</a>|
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

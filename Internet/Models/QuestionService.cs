@@ -9,10 +9,10 @@ namespace Internet.Models
     {
         private List<Question> _questions;
         private TestEntities _testEntity;
-        public QuestionService(Test QuestionTest, TestEntities testEntity) 
+        public QuestionService(Test QuestionTest) 
         {
             _questions = QuestionTest.Questions.ToList<Question>();
-            _testEntity = testEntity;
+            _testEntity = new TestEntities();
         }
         public Question GetByID(int ID)
         {
@@ -46,7 +46,7 @@ namespace Internet.Models
 
         public List<Question> GetItems()
         {
-            throw new NotImplementedException();
+            return _questions;
         }
     }
 }

@@ -3,11 +3,10 @@
 }
 
 <h2>About</h2>
-<p>
+
     <ul>
     @foreach(MembershipUser item in Membership.GetAllUsers())
     {
         <li> @item @item.CreationDate </li>        
     }
     </ul>
-</p>
