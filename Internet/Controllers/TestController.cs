@@ -36,16 +36,15 @@ namespace Internet.Controllers
         [Authorize(Roles = "Professor")]
         public ActionResult Edit(int ID) 
         {
-          
             return View(_service.GetByID(ID));
         }
         [Authorize(Roles = "Professor")]
         [HttpPost]
-        public ActionResult Edit(Test item)
+        public ActionResult Edit(int ID,Test item)
         {
-           
-            _service.UpdateItem(_service.GetByID(1),item);
-            return View();
+
+            _service.UpdateItem(_service.GetByID(ID), item);
+            return View("List", _service.GetItems());
         }
 
 
@@ -58,8 +57,9 @@ namespace Internet.Controllers
         [HttpPost]
         public ActionResult Create(Test item)
         {
+            item.TestAuthor = User.Identity.Name;
             _service.CreateItem(item);
-            return View();
+            return View("List", _service.GetItems());
         }
         
     }

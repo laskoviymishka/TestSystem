@@ -59,7 +59,6 @@ namespace Internet.Models
             test.TestDescription = newItem.TestDescription;
             test.CategoryID = newItem.CategoryID;
             test.DifficultyID = newItem.DifficultyID;
-            test.TestAuthor = newItem.TestAuthor;
             _tests.SaveChanges();
         }
         #endregion
