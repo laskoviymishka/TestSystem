@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TestModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="TestModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TestModelStoreContainer">
           <EntitySet Name="Answers" EntityType="TestModel.Store.Answers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Difficulty" EntityType="TestModel.Store.Difficulty" store:Type="Tables" Schema="dbo" />
@@ -34,9 +34,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="AnswerBody" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="IsRight" Type="bit" Nullable="false" />
-          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="AnswerBody" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsRight" Type="bit" />
+          <Property Name="QuestionID" Type="int" />
         </EntityType>
         <EntityType Name="Difficulty">
           <Key>
@@ -51,7 +51,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="QuestionBody" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="QuestionBody" Type="nvarchar" MaxLength="50" />
           <Property Name="TestID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -84,7 +84,7 @@
           <Property Name="DifficultyID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Answers_Questions">
-          <End Role="Questions" Type="TestModel.Store.Questions" Multiplicity="1" />
+          <End Role="Questions" Type="TestModel.Store.Questions" Multiplicity="0..1" />
           <End Role="Answers" Type="TestModel.Store.Answers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Questions">
@@ -131,8 +131,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TestModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -336,7 +335,7 @@
         <EntityTypeShape EntityType="TestModel.Answer" Width="1.5" PointX="7.5" PointY="1.375" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.Difficulty" Width="1.5" PointX="0.75" PointY="1.5" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.Question" Width="1.5" PointX="5.25" PointY="1.375" Height="1.9802864583333326" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestModel.sysdiagram" Width="1.5" PointX="7.375" PointY="4.5" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.sysdiagram" Width="1.5" PointX="9.625" PointY="3.875" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.TestCategory" Width="1.5" PointX="0.5" PointY="3.875" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.Test" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
         <AssociationConnector Association="TestModel.FK_Answers_Questions" ManuallyRouted="false">
