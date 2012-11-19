@@ -9,10 +9,11 @@ namespace Internet.Models
     {
         private List<Question> _questions;
         private TestEntities _testEntity;
-        public QuestionService(Test QuestionTest) 
+        public QuestionService() 
         {
-            _questions = QuestionTest.Questions.ToList<Question>();
             _testEntity = new TestEntities();
+            _questions = _testEntity.Questions.ToList<Question>();
+            
         }
         public Question GetByID(int ID)
         {
@@ -25,6 +26,8 @@ namespace Internet.Models
 
         public void CreateItem(Question item)
         {
+            item.ID = _testEntity.Questions.ToList<Question>().Last().ID;
+            item.ID++;
             _testEntity.Questions.AddObject(item);
             _testEntity.SaveChanges();
         }
@@ -36,10 +39,10 @@ namespace Internet.Models
 
         public void UpdateItem(Question item, Question newItem)
         {
-            Question q = this.GetByID(item.ID);
+            Question q = _testEntity.Questions.Where(t => t.ID == item.ID).First();
             q.QuestionBody = newItem.QuestionBody;
             q.TestID = newItem.TestID;
-            q.Answers = newItem.Answers;
+            
             _testEntity.SaveChanges();
         }
 
@@ -47,6 +50,16 @@ namespace Internet.Models
         public List<Question> GetItems()
         {
             return _questions;
+        }
+
+        public List<Question> GetItemsWithParams(int param)
+        {
+            return _testEntity.Questions.Where(q => q.TestID == param).ToList<Question>();
+        }
+
+        public List<Question> GetItemsWithParams(string param)
+        {
+            throw new NotImplementedException();
         }
     }
 }

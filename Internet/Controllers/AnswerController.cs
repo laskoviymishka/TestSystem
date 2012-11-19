@@ -7,24 +7,26 @@ using Internet.Models;
 
 namespace Internet.Controllers
 {
-    public class QuestionController : Controller
+    public class AnswerController : Controller
     {
-        IService<Question> _service;
         //
-        // GET: /Question/
-        public QuestionController() 
+        // GET: /Answer/index/5
+        IService<Answer> _service;
+        public AnswerController() 
         {
-            _service = new QuestionService();
+            _service = new AnswerService();
         }
 
         public ActionResult Index(int id)
         {
-            ViewData["ANSWER_ID"] = id.ToString();
+            ViewData["QUESTION_ID"] = id.ToString();
+            IService<Question> _tempQuestion = new QuestionService();
+            ViewData["TEST_ID"] = _tempQuestion.GetByID(id).TestID;
             return View(_service.GetItemsWithParams(id));
         }
 
         //
-        // GET: /Question/Details/5
+        // GET: /Answer/Details/5
 
         public ActionResult Details(int id)
         {
@@ -32,7 +34,7 @@ namespace Internet.Controllers
         }
 
         //
-        // GET: /Question/Create
+        // GET: /Answer/Create
 
         public ActionResult Create(int id)
         {
@@ -40,19 +42,25 @@ namespace Internet.Controllers
         } 
 
         //
-        // POST: /Question/Create
+        // POST: /Answer/Create
 
         [HttpPost]
-        public ActionResult Create(int id,Question item)
+        public ActionResult Create(int id,Answer item)
         {
-                _service = new QuestionService();
-                item.TestID = id;
+            try
+            {
+                item.QuestionID = id;
                 _service.CreateItem(item);
                 return RedirectToAction("Index/"+id);
+            }
+            catch
+            {
+                return View();
+            }
         }
         
         //
-        // GET: /Question/Edit/5
+        // GET: /Answer/Edit/5
  
         public ActionResult Edit(int id)
         {
@@ -60,18 +68,19 @@ namespace Internet.Controllers
         }
 
         //
-        // POST: /Question/Edit/5
+        // POST: /Answer/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, Question item)
+        public ActionResult Edit(int id, Answer item)
         {
+            
                 _service.UpdateItem(_service.GetByID(id), item);
- 
-                return RedirectToAction("Index/" + _service.GetByID(id).TestID);
+                return RedirectToAction("Index/" + _service.GetByID(id).QuestionID);
+            
         }
 
         //
-        // GET: /Question/Delete/5
+        // GET: /Answer/Delete/5
  
         public ActionResult Delete(int id)
         {
@@ -79,10 +88,10 @@ namespace Internet.Controllers
         }
 
         //
-        // POST: /Question/Delete/5
+        // POST: /Answer/Delete/5
 
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Answer collection)
         {
             try
             {

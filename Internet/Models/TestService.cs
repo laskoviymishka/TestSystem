@@ -68,5 +68,16 @@ namespace Internet.Models
         {
             return _tests.Tests.ToList<Test>();
         }
+
+
+        public List<Test> GetItemsWithParams(int param)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Test> GetItemsWithParams(string param)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,28 +6,30 @@
 
 <h2>Create</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
+@using (Html.BeginForm()) {
+    <fieldset>
     <legend>Question</legend>
 
     <div class="display-label">QuestionBody</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.QuestionBody)
+        @Html.EditorFor(model => model.QuestionBody)
     </div>
 
-    <div class="display-label">TestID</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TestID)
-    </div>
+    <br />
+    <div class="display-label">Test ID</div>
+    
+    <br />
 
     <div class="display-label">QuestionType</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.QuestionType)
+        @Html.EditorFor(model => model.QuestionType)
     </div>
+    <br />
 </fieldset>
-@using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
+        <input type="submit" value="Create" /> |
         @Html.ActionLink("Back to List", "Index")
     </p>
 }

@@ -9,6 +9,8 @@ namespace Internet.Models
     {
         T GetByID(int ID);
         List<T> GetItems();
+        List<T> GetItemsWithParams(int param);
+        List<T> GetItemsWithParams(string param);
 
         void CreateItem(T item);
         void DeleteItem(T item);
