@@ -35,8 +35,8 @@ namespace Internet.Models
             Answer answer = _testEntity.Answers.Where<Answer>(a => a.ID == item.ID).First<Answer>();
             answer.IsRight = newItem.IsRight;
             answer.AnswerBody = newItem.AnswerBody;
-            
-            answer.AnswerBody = newItem.AnswerBody;
+
+            _testEntity.SaveChanges();
         }
 
 

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>List</h2>
+<h2>Test List</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -33,24 +33,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-           | @Html.DisplayFor(modelItem => item.TestName)|
+            @Html.DisplayFor(modelItem => item.TestName)
         </td>
         <td>
-           | @Html.DisplayFor(modelItem => item.TestDescription)|
+            @Html.DisplayFor(modelItem => item.TestDescription)
         </td>
         <td>
-           | @Html.DisplayFor(modelItem => item.TestCategory.CategoryName)|
+            @Html.DisplayFor(modelItem => item.TestCategory.CategoryName)
         </td>
         <td>
-           | @Html.DisplayFor(modelItem => item.TestAuthor)|
+            @Html.DisplayFor(modelItem => item.TestAuthor)
         </td>
         <td>
-           | @Html.DisplayFor(modelItem => item.Difficulty.DifficultyName)|
+            @Html.DisplayFor(modelItem => item.Difficulty.DifficultyName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })|
+             <a href = "@Url.Content("~/Question/Index/" + item.ID.ToString())"> View Questions</a>|
         </td>
     </tr>
 }

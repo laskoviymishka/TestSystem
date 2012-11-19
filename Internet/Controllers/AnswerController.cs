@@ -12,11 +12,13 @@ namespace Internet.Controllers
         //
         // GET: /Answer/index/5
         IService<Answer> _service;
+
         public AnswerController() 
         {
             _service = new AnswerService();
         }
 
+        [Authorize(Roles = "Professor")]
         public ActionResult Index(int id)
         {
             ViewData["QUESTION_ID"] = id.ToString();
@@ -28,6 +30,7 @@ namespace Internet.Controllers
         //
         // GET: /Answer/Details/5
 
+        [Authorize(Roles = "Professor")]
         public ActionResult Details(int id)
         {
             return View(_service.GetByID(id));
@@ -36,6 +39,7 @@ namespace Internet.Controllers
         //
         // GET: /Answer/Create
 
+        [Authorize(Roles = "Professor")]
         public ActionResult Create(int id)
         {
             return View();
@@ -44,6 +48,7 @@ namespace Internet.Controllers
         //
         // POST: /Answer/Create
 
+        [Authorize(Roles = "Professor")]
         [HttpPost]
         public ActionResult Create(int id,Answer item)
         {
@@ -61,7 +66,8 @@ namespace Internet.Controllers
         
         //
         // GET: /Answer/Edit/5
- 
+
+        [Authorize(Roles = "Professor")]
         public ActionResult Edit(int id)
         {
             return View(_service.GetByID(id));
@@ -71,6 +77,7 @@ namespace Internet.Controllers
         // POST: /Answer/Edit/5
 
         [HttpPost]
+        [Authorize(Roles = "Professor")]
         public ActionResult Edit(int id, Answer item)
         {
             
@@ -81,7 +88,8 @@ namespace Internet.Controllers
 
         //
         // GET: /Answer/Delete/5
- 
+
+        [Authorize(Roles = "Professor")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -91,6 +99,7 @@ namespace Internet.Controllers
         // POST: /Answer/Delete/5
 
         [HttpPost]
+        [Authorize(Roles = "Professor")]
         public ActionResult Delete(int id, Answer collection)
         {
             try

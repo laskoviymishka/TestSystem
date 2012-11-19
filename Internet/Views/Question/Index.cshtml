@@ -48,8 +48,8 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) |
+             <a href = "@Url.Content("~/Answer/Index/" + item.ID.ToString())"> View Answers</a>|
         </td>
     </tr>
 }

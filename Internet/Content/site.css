@@ -11,3 +11,16 @@
 {
     color: #B94A48;
 }
+table {
+ background: white; /* цвет фона */
+ border: 1px #ff0000 solid; /* стиль внешней рамки */
+}
+td {
+ border: 1px green solid; /* стиль рамки ячеек */
+ padding: 0.2em; 
+}
+th {
+ background: #ffaaaa;
+ border: 1px blue solid; /* стиль рамки заголовков */
+ padding: 0.2em; 
+}
