@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Internet.Models
 {
-    public interface IService<T>
+    public interface IRepository<T>
     {
         T GetByID(int ID);
         List<T> GetItems();

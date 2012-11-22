@@ -9,10 +9,10 @@ namespace Internet.Controllers
 {
     public class TestController : Controller
     {
-        IService<Test> _service;
+        IRepository<Test> _repository;
         public TestController() 
         {
-            _service = new TestService();
+            _repository = new TestRepository();
         }
         //
         // GET: /Test/
@@ -24,27 +24,32 @@ namespace Internet.Controllers
             {
                 return View("List",te.Tests);
             }
-            return View(te.Tests.ToList());
+            var url = Url.RouteUrl("Default", new{
+                                                    action = "Index",
+                                                    controller = "TestPassing"
+                                                 });
+            Response.Redirect(url);
+            return null;
         }
         [Authorize(Roles = "Professor")]
         public ActionResult Delete(int ID)
         {
-            _service.DeleteItem(_service.GetByID(ID));
-            return View("List", _service.GetItems());
+            _repository.DeleteItem(_repository.GetByID(ID));
+            return View("List", _repository.GetItems());
         }
 
         [Authorize(Roles = "Professor")]
         public ActionResult Edit(int ID) 
         {
-            return View(_service.GetByID(ID));
+            return View(_repository.GetByID(ID));
         }
         [Authorize(Roles = "Professor")]
         [HttpPost]
         public ActionResult Edit(int ID,Test item)
         {
 
-            _service.UpdateItem(_service.GetByID(ID), item);
-            return View("List", _service.GetItems());
+            _repository.UpdateItem(_repository.GetByID(ID), item);
+            return View("List", _repository.GetItems());
         }
 
 
@@ -58,14 +63,14 @@ namespace Internet.Controllers
         public ActionResult Create(Test item)
         {
             item.TestAuthor = User.Identity.Name;
-            _service.CreateItem(item);
-            return View("List", _service.GetItems());
+            _repository.CreateItem(item);
+            return View("List", _repository.GetItems());
         }
         [HttpGet]
         [Authorize(Roles = "Professor")]
         public ActionResult Details(int ID)
         {
-            return View(_service.GetByID(ID));
+            return View(_repository.GetByID(ID));
         }
     }
 }

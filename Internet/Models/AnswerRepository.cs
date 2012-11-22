@@ -5,13 +5,13 @@ using System.Web;
 
 namespace Internet.Models
 {
-    public class AnswerService:IService<Answer>
+    public class AnswerRepository:IRepository<Answer>
     {
         private List<Answer> _answers;
         private TestEntities _testEntity;
-        public AnswerService()
+        public AnswerRepository()
         {
-            _testEntity = new TestEntities();
+            _testEntity = EntityContextContainer.getEntity();
             _answers = _testEntity.Answers.ToList<Answer>();
         }
         public Answer GetByID(int ID)

@@ -1,0 +1,56 @@
+﻿@model Internet.Models.Test
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Test</h2>
+<fieldset>
+    <legend>Test</legend>
+    <div class="display-label">
+        TestName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TestName)
+    </div>
+    @using (Html.BeginForm())
+    {
+    <table>
+        <tr>
+            <th>
+                Question
+            </th>
+            <th>
+                Answers
+            </th>
+        </tr>
+        @foreach (var question in Model.Questions)
+        {
+            <tr>
+                <td>@question.QuestionBody
+                </td>
+                
+                <td>
+                    @foreach (var answer in question.Answers)
+                    {
+                   
+                        <ul>
+                            <li>@answer.AnswerBody @Html.CheckBox(answer.ID.ToString(), answer) </li>
+                        </ul>
+                 
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+        @ViewData["T"]
+         <p>
+            <input type="submit" value="Save" />
+        </p>
+    }
+
+</fieldset>
+<p>
+    @Html.ActionLink("Send result", "Complete", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+    <a href = "@Url.Content("~/Result/Index")> View Results</a>|
+</p>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Internet.Models.Test>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table>
+    <tr>
+        <th>
+            TestName
+        </th>
+        <th>
+            TestDescription
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            TestAuthor
+        </th>
+        <th>
+            Difficulty
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestCategory.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestAuthor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Difficulty.DifficultyName)
+        </td>
+        <td>
+            @Html.ActionLink("Пройти тест", "Test", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

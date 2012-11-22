@@ -23,7 +23,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("TestModel", "FK_Questions_Tests", "Tests", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Internet.Models.Test), "Questions", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Question), true)]
 [assembly: EdmRelationshipAttribute("TestModel", "FK_Tests_TestCategory", "TestCategory", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Internet.Models.TestCategory), "Tests", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Test), true)]
 [assembly: EdmRelationshipAttribute("TestModel", "FK_Results_Tests", "Test", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Internet.Models.Test), "Result", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Result), true)]
-[assembly: EdmRelationshipAttribute("TestModel", "AnswersResults", "Answer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Answer), "Result", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.Result))]
+[assembly: EdmRelationshipAttribute("TestModel", "FK_AnswersResults_Answers", "Answer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Internet.Models.Answer), "AnswerResult", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.AnswerResult), true)]
+[assembly: EdmRelationshipAttribute("TestModel", "FK_AnswersResults_Results", "Result", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Internet.Models.Result), "AnswerResult", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Internet.Models.AnswerResult), true)]
 
 #endregion
 
@@ -186,6 +187,22 @@ namespace Internet.Models
             }
         }
         private ObjectSet<Result> _Results;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<AnswerResult> AnswerResults
+        {
+            get
+            {
+                if ((_AnswerResults == null))
+                {
+                    _AnswerResults = base.CreateObjectSet<AnswerResult>("AnswerResults");
+                }
+                return _AnswerResults;
+            }
+        }
+        private ObjectSet<AnswerResult> _AnswerResults;
 
         #endregion
         #region Методы AddTo
@@ -244,6 +261,14 @@ namespace Internet.Models
         public void AddToResults(Result result)
         {
             base.AddObject("Results", result);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet AnswerResults. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToAnswerResults(AnswerResult answerResult)
+        {
+            base.AddObject("AnswerResults", answerResult);
         }
 
         #endregion
@@ -431,18 +456,204 @@ namespace Internet.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TestModel", "AnswersResults", "Result")]
-        public EntityCollection<Result> Results_1
+        [EdmRelationshipNavigationPropertyAttribute("TestModel", "FK_AnswersResults_Answers", "AnswerResult")]
+        public EntityCollection<AnswerResult> AnswersResults
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Result>("TestModel.AnswersResults", "Result");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AnswerResult>("TestModel.FK_AnswersResults_Answers", "AnswerResult");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Result>("TestModel.AnswersResults", "Result", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AnswerResult>("TestModel.FK_AnswersResults_Answers", "AnswerResult", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TestModel", Name="AnswerResult")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AnswerResult : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта AnswerResult.
+        /// </summary>
+        /// <param name="resultID">Исходное значение свойства ResultID.</param>
+        /// <param name="answerID">Исходное значение свойства AnswerID.</param>
+        /// <param name="id">Исходное значение свойства ID.</param>
+        public static AnswerResult CreateAnswerResult(global::System.Int32 resultID, global::System.Int32 answerID, global::System.Int32 id)
+        {
+            AnswerResult answerResult = new AnswerResult();
+            answerResult.ResultID = resultID;
+            answerResult.AnswerID = answerID;
+            answerResult.ID = id;
+            return answerResult;
+        }
+
+        #endregion
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ResultID
+        {
+            get
+            {
+                return _ResultID;
+            }
+            set
+            {
+                OnResultIDChanging(value);
+                ReportPropertyChanging("ResultID");
+                _ResultID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ResultID");
+                OnResultIDChanged();
+            }
+        }
+        private global::System.Int32 _ResultID;
+        partial void OnResultIDChanging(global::System.Int32 value);
+        partial void OnResultIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AnswerID
+        {
+            get
+            {
+                return _AnswerID;
+            }
+            set
+            {
+                OnAnswerIDChanging(value);
+                ReportPropertyChanging("AnswerID");
+                _AnswerID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AnswerID");
+                OnAnswerIDChanged();
+            }
+        }
+        private global::System.Int32 _AnswerID;
+        partial void OnAnswerIDChanging(global::System.Int32 value);
+        partial void OnAnswerIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+
+        #endregion
+    
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TestModel", "FK_AnswersResults_Answers", "Answer")]
+        public Answer Answer
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Answer>("TestModel.FK_AnswersResults_Answers", "Answer").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Answer>("TestModel.FK_AnswersResults_Answers", "Answer").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Answer> AnswerReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Answer>("TestModel.FK_AnswersResults_Answers", "Answer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Answer>("TestModel.FK_AnswersResults_Answers", "Answer", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TestModel", "FK_AnswersResults_Results", "Result")]
+        public Result Result
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Result>("TestModel.FK_AnswersResults_Results", "Result").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Result>("TestModel.FK_AnswersResults_Results", "Result").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Result> ResultReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Result>("TestModel.FK_AnswersResults_Results", "Result");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Result>("TestModel.FK_AnswersResults_Results", "Result", value);
                 }
             }
         }
@@ -794,14 +1005,12 @@ namespace Internet.Models
         /// <param name="id">Исходное значение свойства ID.</param>
         /// <param name="testID">Исходное значение свойства TestID.</param>
         /// <param name="userName">Исходное значение свойства UserName.</param>
-        /// <param name="answerID">Исходное значение свойства AnswerID.</param>
-        public static Result CreateResult(global::System.Int32 id, global::System.Int32 testID, global::System.String userName, global::System.Int32 answerID)
+        public static Result CreateResult(global::System.Int32 id, global::System.Int32 testID, global::System.String userName)
         {
             Result result = new Result();
             result.ID = id;
             result.TestID = testID;
             result.UserName = userName;
-            result.AnswerID = answerID;
             return result;
         }
 
@@ -906,30 +1115,6 @@ namespace Internet.Models
         private global::System.String _ResultDescription;
         partial void OnResultDescriptionChanging(global::System.String value);
         partial void OnResultDescriptionChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 AnswerID
-        {
-            get
-            {
-                return _AnswerID;
-            }
-            set
-            {
-                OnAnswerIDChanging(value);
-                ReportPropertyChanging("AnswerID");
-                _AnswerID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("AnswerID");
-                OnAnswerIDChanged();
-            }
-        }
-        private global::System.Int32 _AnswerID;
-        partial void OnAnswerIDChanging(global::System.Int32 value);
-        partial void OnAnswerIDChanged();
 
         #endregion
     
@@ -979,18 +1164,18 @@ namespace Internet.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TestModel", "AnswersResults", "Answer")]
-        public EntityCollection<Answer> Answers
+        [EdmRelationshipNavigationPropertyAttribute("TestModel", "FK_AnswersResults_Results", "AnswerResult")]
+        public EntityCollection<AnswerResult> AnswersResults
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Answer>("TestModel.AnswersResults", "Answer");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AnswerResult>("TestModel.FK_AnswersResults_Results", "AnswerResult");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Answer>("TestModel.AnswersResults", "Answer", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AnswerResult>("TestModel.FK_AnswersResults_Results", "AnswerResult", value);
                 }
             }
         }

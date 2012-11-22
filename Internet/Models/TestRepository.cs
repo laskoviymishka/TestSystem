@@ -5,12 +5,12 @@ using System.Web;
 
 namespace Internet.Models
 {
-    public class TestService:IService<Test>
+    public class TestRepository:IRepository<Test>
     {
         TestEntities _tests;
-        public TestService() 
+        public TestRepository() 
         {
-            _tests = new TestEntities();
+            _tests = EntityContextContainer.getEntity();
             
         }
         #region Getters

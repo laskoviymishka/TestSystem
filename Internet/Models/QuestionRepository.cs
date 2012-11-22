@@ -5,13 +5,13 @@ using System.Web;
 
 namespace Internet.Models
 {
-    public class QuestionService: IService<Question>
+    public class QuestionRepository: IRepository<Question>
     {
         private List<Question> _questions;
         private TestEntities _testEntity;
-        public QuestionService() 
+        public QuestionRepository() 
         {
-            _testEntity = new TestEntities();
+            _testEntity = EntityContextContainer.getEntity();
             _questions = _testEntity.Questions.ToList<Question>();
             
         }

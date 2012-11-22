@@ -1,0 +1,41 @@
+﻿@model Internet.Models.Result
+
+@{
+    ViewBag.Title = "TestResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TestResult</h2>
+
+<fieldset>
+    <legend>Result</legend>
+
+    <div class="display-label">Test</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Test.TestName)
+    </div>
+
+    <div class="display-label">UserName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+
+    <div class="display-label">ResultDescription</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ResultDescription)
+    </div>
+    <div class="display-label">Answers</div>
+    <div class="display-field">
+        <ul>
+        @foreach(var item in Model.AnswersResults)
+        {
+            <li>@item.Answer.AnswerBody @item.Answer.IsRight</li>
+        
+        }
+        </ul>
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
