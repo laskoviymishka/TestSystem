@@ -9,19 +9,19 @@ namespace Internet.Controllers
 {
     public class QuestionController : Controller
     {
-        IService<Question> _service;
+        IRepository<Question> _repository;
         //
         // GET: /Question/
         public QuestionController() 
         {
-            _service = new QuestionService();
+            _repository = new QuestionRepository();
         }
 
         [Authorize(Roles = "Professor")]
         public ActionResult Index(int id)
         {
             ViewData["ANSWER_ID"] = id.ToString();
-            return View(_service.GetItemsWithParams(id));
+            return View(_repository.GetItemsWithParams(id));
         }
 
         //
@@ -30,7 +30,7 @@ namespace Internet.Controllers
         [Authorize(Roles = "Professor")]
         public ActionResult Details(int id)
         {
-            return View(_service.GetByID(id));
+            return View(_repository.GetByID(id));
         }
 
         //
@@ -49,9 +49,9 @@ namespace Internet.Controllers
         [Authorize(Roles = "Professor")]
         public ActionResult Create(int id,Question item)
         {
-                _service = new QuestionService();
+                _repository = new QuestionRepository();
                 item.TestID = id;
-                _service.CreateItem(item);
+                _repository.CreateItem(item);
                 return RedirectToAction("Index/"+id);
         }
         
@@ -61,7 +61,7 @@ namespace Internet.Controllers
         [Authorize(Roles = "Professor")]
         public ActionResult Edit(int id)
         {
-            return View(_service.GetByID(id));
+            return View(_repository.GetByID(id));
         }
 
         //
@@ -71,9 +71,9 @@ namespace Internet.Controllers
         [Authorize(Roles = "Professor")]
         public ActionResult Edit(int id, Question item)
         {
-                _service.UpdateItem(_service.GetByID(id), item);
+                _repository.UpdateItem(_repository.GetByID(id), item);
  
-                return RedirectToAction("Index/" + _service.GetByID(id).TestID);
+                return RedirectToAction("Index/" + _repository.GetByID(id).TestID);
         }
 
         //
