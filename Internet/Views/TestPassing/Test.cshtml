@@ -25,19 +25,30 @@
         </tr>
         @foreach (var question in Model.Questions)
         {
+            
             <tr>
                 <td>@question.QuestionBody
                 </td>
                 
                 <td>
-                    @foreach (var answer in question.Answers)
-                    {
-                   
-                        <ul>
-                            <li>@answer.AnswerBody @Html.CheckBox(answer.ID.ToString(), answer) </li>
-                        </ul>
-                 
-                    }
+                @switch(question.QuestionType)
+                {
+                    case 1: foreach (var answer in question.Answers) 
+                            {
+                                <ul>
+                                    <li>@answer.AnswerBody  
+                                        
+                                        <input type=checkbox name ="@question.QuestionBody" value = "@answer.ID"
+                                    </li>
+                                </ul>                  
+                            }
+                             break;
+                    case 2: Html.ListBox("item", new SelectList(question.Answers.ToList(), "ID", "AnswerBody"));
+                       break;
+                    case 3:
+                       break;
+                }
+                
                 </td>
             </tr>
         }
@@ -52,5 +63,5 @@
 <p>
     @Html.ActionLink("Send result", "Complete", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
-    <a href = "@Url.Content("~/Result/Index")> View Results</a>|
+    <a href = @Url.Content("~/Result/Index")> View Results</a>|
 </p>

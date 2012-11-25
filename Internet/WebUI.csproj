@@ -80,6 +80,7 @@
     <Compile Include="Models\AnswerRepository.cs" />
     <Compile Include="Models\AnswerResultRepository.cs" />
     <Compile Include="Models\AddResult.cs" />
+    <Compile Include="Models\BoolSetting.cs" />
     <Compile Include="Models\EntityContextContainer.cs" />
     <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\QuestionRepository.cs" />

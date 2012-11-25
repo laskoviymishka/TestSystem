@@ -44,7 +44,8 @@ namespace Internet.Controllers
                                                     controller = "TestPassing"
                                                 });
             Response.Redirect(url);
-            return View(id);
+            ViewData["T"] = winnars.First();
+            return View(_repository.GetByID(id));
         }
         public ActionResult TestResult(int id)
         {

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "TestResult";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int t = 0;
 }
 
 <h2>TestResult</h2>
@@ -29,13 +30,17 @@
         <ul>
         @foreach(var item in Model.AnswersResults)
         {
+           
             <li>@item.Answer.AnswerBody @item.Answer.IsRight</li>
-        
+            if(item.Answer.IsRight)
+            {
+                t++;
+            }
         }
         </ul>
+        <h2>Ваш результат @t из @Model.AnswersResults.Count</h2>
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Tests", "Index")
 </p>
