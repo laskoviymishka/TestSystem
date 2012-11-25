@@ -407,6 +407,30 @@ namespace Internet.Models
         private global::System.Int32 _QuestionID;
         partial void OnQuestionIDChanging(global::System.Int32 value);
         partial void OnQuestionIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AnswerText
+        {
+            get
+            {
+                return _AnswerText;
+            }
+            set
+            {
+                OnAnswerTextChanging(value);
+                ReportPropertyChanging("AnswerText");
+                _AnswerText = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AnswerText");
+                OnAnswerTextChanged();
+            }
+        }
+        private global::System.String _AnswerText;
+        partial void OnAnswerTextChanging(global::System.String value);
+        partial void OnAnswerTextChanged();
 
         #endregion
     
@@ -577,6 +601,30 @@ namespace Internet.Models
         private global::System.Int32 _ID;
         partial void OnIDChanging(global::System.Int32 value);
         partial void OnIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AnswerInputText
+        {
+            get
+            {
+                return _AnswerInputText;
+            }
+            set
+            {
+                OnAnswerInputTextChanging(value);
+                ReportPropertyChanging("AnswerInputText");
+                _AnswerInputText = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AnswerInputText");
+                OnAnswerInputTextChanged();
+            }
+        }
+        private global::System.String _AnswerInputText;
+        partial void OnAnswerInputTextChanging(global::System.String value);
+        partial void OnAnswerInputTextChanged();
 
         #endregion
     

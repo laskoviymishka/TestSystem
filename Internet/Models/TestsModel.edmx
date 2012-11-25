@@ -47,6 +47,7 @@
           <Property Name="AnswerBody" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="IsRight" Type="bit" />
           <Property Name="QuestionID" Type="int" />
+          <Property Name="AnswerText" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="AnswersResults">
           <Key>
@@ -55,6 +56,7 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="AnswerID" Type="int" Nullable="false" />
           <Property Name="ResultID" Type="int" Nullable="false" />
+          <Property Name="AnswerInputText" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Difficulty">
           <Key>
@@ -235,6 +237,7 @@
           <Property Name="QuestionID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Question" Relationship="TestModel.FK_Answers_Questions" FromRole="Answers" ToRole="Questions" />
           <NavigationProperty Name="AnswersResults" Relationship="TestModel.FK_AnswersResults_Answers" FromRole="Answer" ToRole="AnswerResult" />
+          <Property Type="String" Name="AnswerText" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Difficulty">
           <Key>
@@ -370,6 +373,7 @@
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Answer" Relationship="TestModel.FK_AnswersResults_Answers" FromRole="AnswerResult" ToRole="Answer" />
           <NavigationProperty Name="Result" Relationship="TestModel.FK_AnswersResults_Results" FromRole="AnswerResult" ToRole="Result" />
+          <Property Type="String" Name="AnswerInputText" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_AnswersResults_Answers">
           <End Type="TestModel.Answer" Role="Answer" Multiplicity="1" />
@@ -402,7 +406,8 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestEntities">
           <EntitySetMapping Name="Answers"><EntityTypeMapping TypeName="TestModel.Answer"><MappingFragment StoreEntitySet="Answers">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="AnswerBody" ColumnName="AnswerBody" />
             <ScalarProperty Name="IsRight" ColumnName="IsRight" />
             <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
@@ -451,6 +456,7 @@
           <EntitySetMapping Name="AnswerResults">
             <EntityTypeMapping TypeName="IsTypeOf(TestModel.AnswerResult)">
               <MappingFragment StoreEntitySet="AnswersResults">
+                <ScalarProperty Name="AnswerInputText" ColumnName="AnswerInputText" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
                 <ScalarProperty Name="ResultID" ColumnName="ResultID" />
@@ -478,15 +484,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="TestsModel">
-        <EntityTypeShape EntityType="TestModel.Answer" Width="1.5" PointX="7.5" PointY="3.625" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.Answer" Width="1.5" PointX="7.5" PointY="3.625" Height="2.3648893229166656" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.Difficulty" Width="1.5" PointX="0.75" PointY="1.5" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.Question" Width="1.5" PointX="5.375" PointY="4" Height="2.172587890625" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.sysdiagram" Width="1.5" PointX="9.625" PointY="3.875" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.TestCategory" Width="1.5" PointX="0.5" PointY="3.875" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.Test" Width="1.5" PointX="3.125" PointY="0.625" Height="2.941793619791667" IsExpanded="true" />
         <AssociationConnector Association="TestModel.FK_Answers_Questions" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.875" PointY="4.8987939453125" />
-          <ConnectorPoint PointX="7.5" PointY="4.8987939453125" />
+          <ConnectorPoint PointX="6.875" PointY="4.9949446614583328" />
+          <ConnectorPoint PointX="7.5" PointY="4.9949446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="TestModel.FK_Tests_Difficulty" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="2.3939925130208337" />

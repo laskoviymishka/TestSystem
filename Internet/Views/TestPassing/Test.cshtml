@@ -33,20 +33,28 @@
                 <td>
                 @switch(question.QuestionType)
                 {
-                    case 1: foreach (var answer in question.Answers) 
+                    case 3: foreach (var answer in question.Answers) 
                             {
                                 <ul>
                                     <li>@answer.AnswerBody  
                                         
-                                        <input type=checkbox name ="@question.QuestionBody" value = "@answer.ID"
+                                        <input type=checkbox name ="@question.ID" value = "@answer.ID" />
                                     </li>
                                 </ul>                  
                             }
                              break;
-                    case 2: Html.ListBox("item", new SelectList(question.Answers.ToList(), "ID", "AnswerBody"));
-                       break;
-                    case 3:
-                       break;
+                    case 2: foreach (var answer in question.Answers) 
+                            {
+                                <ul>
+                                    <li>@answer.AnswerBody  
+                                        
+                                        <input type=radio name ="@question.ID" value = "@answer.ID" />
+                                    </li>
+                                </ul>                  
+                            }
+                             break;
+                    case 1: <input type=text name="@question.ID" />
+                             break;
                 }
                 
                 </td>

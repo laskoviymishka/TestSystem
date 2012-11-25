@@ -26,10 +26,10 @@ namespace Internet.Controllers
             return View(_repository.GetByID(id));
         }
         [HttpPost]
-        public ActionResult Test(int id, FormCollection item)
+        public ActionResult Test(int id, FormCollection items)
         {
 
-            var winnars = (from x in item.AllKeys
+           /* var winnars = (from x in item.AllKeys
                           where item[x] != "false"
                           select x).ToList<string>();
             Result res = new Result();
@@ -44,7 +44,12 @@ namespace Internet.Controllers
                                                     controller = "TestPassing"
                                                 });
             Response.Redirect(url);
-            ViewData["T"] = winnars.First();
+            ViewData["T"] = winnars.First();*/
+            List<string> winn = new List<string>();
+            foreach (var item in items) 
+            {
+                winn.Add(item.ToString());           
+            }
             return View(_repository.GetByID(id));
         }
         public ActionResult TestResult(int id)
